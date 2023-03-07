@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, ViewStyle, ImageBackground, FlatList, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, ViewStyle, ImageBackground, FlatList, TouchableOpacity } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import colors from '../../../Config/colors';
 import AppText from '../../Text/AppText';
