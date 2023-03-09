@@ -2,9 +2,11 @@ import React, { Component, ReactNode } from 'react';
 import { View, Text, StyleSheet, TextStyle, TextComponent, TextProps } from 'react-native';
 import colors from '../../Config/colors';
 
+
+
 const AppText = (props:{
     children?: string | number,
-    style?:TextStyle | TextStyle[],
+    style?:TextStyle | TextStyle[] | any[],
     otherProps?:TextProps,
     type?:string
 }) => {

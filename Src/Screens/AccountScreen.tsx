@@ -13,9 +13,13 @@ import RewardsSvg from '../Assets/svgs/Account/rewards.svg';
 import LearnSvg from '../Assets/svgs/Account/learn.svg';
 import SupportSvg from '../Assets/svgs/Account/support.svg';
 import AppButton from '../Components/Common/AppButton';
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 
 
 const AccountScreen = () => {
+
+    const navigation:NavigationProp<ParamListBase>=useNavigation();
+
     return (
 
         <ScrollView>
@@ -23,27 +27,24 @@ const AccountScreen = () => {
             <View style={styles.container}>
 
                 <SelectionCard
-                    title='Email'
-                    subTitle='kylehill47@gmail.com'
-                    svgComp={<EmailSvg width={wp('7')} height={wp('7')} />}
-                />
-
-                <SelectionCard
                     title='Profile'
                     subTitle='kylehill47@gmail.com'
                     svgComp={<ProfileSvg width={wp('7')} height={wp('7')} />}
+                    onPress={()=> navigation.navigate('profile')}
                 />
 
                 <SelectionCard
                     title='Transfers'
                     subTitle='Investment & Withdrawals'
                     svgComp={<TransferSvg width={wp('7')} height={wp('7')} />}
+                    onPress={()=> navigation.navigate('transfer')}
                 />
 
                 <SelectionCard
                     title='Documents'
                     subTitle='Account, Tax & Confirmation'
                     svgComp={<DocumentSvg width={wp('7')} height={wp('7')} />}
+                    onPress={()=> navigation.navigate('document')}
                 />
 
                 <SelectionCard
@@ -78,6 +79,7 @@ const AccountScreen = () => {
 
                 <AppButton
                     title='Log Out'
+                    onPress={()=> navigation.navigate('login')}
                     isSec
                     style={{
                         marginBottom:hp('5.4132'),  

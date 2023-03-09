@@ -122,7 +122,9 @@ const LoginScreen = () => {
                         Remember me
                     </AppText>
 
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={()=> navigation.navigate('forgot')}
+                    >
                         <AppText
                             style={{
                                 fontSize: 15,

@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { View, StyleSheet, TextInput, TouchableOpacity, ViewStyle } from 'react-native';
+import React, { useEffect, useRef, useState, ReactNode } from 'react'
+import { View, StyleSheet, TextInput, TouchableOpacity, ViewStyle, TextInputProps } from 'react-native';
 import AppText from '../Text/AppText';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import colors from '../../Config/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { TextStyle } from 'react-native';
 // import fontSize from '../Config/fontSize';
 // import { useFormikContext } from 'formik';
 // import ErrorMessage from './TextInputs/ErrorMessagee';
@@ -13,46 +14,68 @@ const AppField = (props: {
     fieldName: string,
     iconOnPress?: () => void,
     icon?: string,
+    leftIcon?: string,
+    iconColor?:string,
     width?: number,
     paddingVertical?: number,
-    style?:ViewStyle,
-    otherProps?: any,
+    containerStyle?: ViewStyle,
+    otherProps?: TextInputProps,
+    titleStyle?: TextStyle,
+    textInputStyle?: TextStyle,
+    inputContainerStyle?: ViewStyle,
+    textInputHeight?: number,
+    value?: string,
+    titleColor?:string
+
 }) => {
 
     const [textInputIsFocused, setTextInputIsFocused] = useState<boolean>(false);
-
-    // const textInputRef = useRef();
 
 
     return (
         <View
             style={{
-                marginBottom:hp('3.053%'),
-                ...props.style
+                marginBottom: hp('3.053%'),
+                ...props.containerStyle
             }}
         >
 
             <AppText
-                style={{
-                    color: textInputIsFocused ? colors.primary : colors.placeholder,
+                style={[{
+                    color: textInputIsFocused ? colors.primary : props.titleColor ? props.titleColor : colors.placeholder,
                     fontSize: 15,
-                    marginBottom:hp('1.1104%')
-                }}
+                    marginBottom: hp('1.1104%')
+                }, props.titleStyle ? props.titleStyle : {}]}
             >
                 {props.fieldName}
             </AppText>
 
             <View
-                style={{
+                style={[{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     borderWidth: 1,
-                    borderColor:textInputIsFocused ? colors.primary : colors.border,
+                    borderColor: textInputIsFocused ? colors.primary : colors.border,
                     borderRadius: 12,
-                    height:hp('7.8%'),
-                    paddingHorizontal:18,
-                }}
+                    height: props.textInputHeight ? props.textInputHeight : hp('7.8%'),
+                    paddingHorizontal: wp('4.9986'),
+                }, props.textInputStyle]}
             >
+
+                {props.leftIcon &&
+                    <TouchableOpacity
+                        onPress={props.iconOnPress}
+                        style={{ justifyContent: 'center' }}
+                    >
+
+                        <Icon
+                            name={props.leftIcon}
+                            size={20}
+                            color={props.iconColor}
+                        />
+
+                    </TouchableOpacity>
+                }
 
                 <TextInput
                     style={{
@@ -65,6 +88,7 @@ const AppField = (props: {
                     selectionColor={colors.primary}
                     // ref={textInputRef}
                     // value={values[formikName]}
+                    value={props.value}
                     onFocus={() => setTextInputIsFocused(true)}
                     onBlur={() => {
                         setTextInputIsFocused(false)
@@ -76,13 +100,13 @@ const AppField = (props: {
                 {props.icon &&
                     <TouchableOpacity
                         onPress={props.iconOnPress}
-                        style={{justifyContent:'center'}}
+                        style={{ justifyContent: 'center' }}
                     >
 
                         <Icon
                             name={props.icon}
                             size={20}
-                            color={colors.fontLight}
+                            color={props.iconColor}
                         />
 
                     </TouchableOpacity>

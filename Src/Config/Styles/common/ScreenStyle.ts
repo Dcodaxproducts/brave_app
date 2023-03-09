@@ -6,7 +6,7 @@ export default{
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
     backgroundColor: colors.foreground,
-    paddingTop: hp('4.858%'),
+    paddingVertical: hp('4.858%'),
     paddingHorizontal: wp('5.554%'),
     elevation: 80,
 }

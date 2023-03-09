@@ -5,43 +5,53 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import colors from '../../Config/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Shadow } from 'react-native-shadow-2';
+import { ViewStyle } from 'react-native';
+import { TextStyle } from 'react-native';
 
 const SelectionCard = (props: {
     title?: string,
     subTitle?: string
-    svgComp?: ReactNode
+    svgComp?: ReactNode,
+    onPress?: () => void,
+    containerSyle?:ViewStyle,
+    iconContainerStyle?:ViewStyle,
+    titleStyle?:TextStyle,
+    subTitleStyle?:TextStyle,
+    marginBottom?:number,
+    disableShadow?:boolean
 }) => {
     return (
         <Shadow
-            distance={20}
-            startColor={colors.shadowDrop}
+            distance={ 20}
+            startColor={ colors.shadowDrop}
+            disabled={props.disableShadow ? true :false}
             // endColor={colors.foreground}
             // offset={[5, 20]}
-            style={{
-                width:'100%',
-                marginBottom: hp('1.388')
+            style={!props.disableShadow && {
+                width: '100%',
+                marginBottom:props.marginBottom ? props.marginBottom :  hp('1.388'),
             }}
         >
 
             <TouchableOpacity
-                style={{
+                style={[{
                     padding: wp('2.777'),
                     backgroundColor: colors.foreground,
                     borderRadius: 15,
                     flexDirection: 'row',
-                    
-                }}
+                }, props.containerSyle]}
+                onPress={props.onPress}
             >
 
                 <View
-                    style={{
+                    style={[{
                         width: wp('13.3296'),
                         height: wp('13.3296'),
                         justifyContent: 'center',
                         alignItems: 'center',
                         backgroundColor: colors.background,
                         borderRadius: 12,
-                    }}
+                    }, props.iconContainerStyle]}
                 >
 
                     {props.svgComp}
@@ -51,32 +61,34 @@ const SelectionCard = (props: {
                 <View
                     style={{
                         paddingVertical: hp('0.5552'),
-                        justifyContent: 'space-between',
+                        justifyContent: !props.subTitle ? 'center' : 'space-between',
                         marginHorizontal: wp('3.0547'),
-                        flexGrow: 1
+                        flexGrow: 1,
                     }}
                 >
 
                     <AppText
-                        style={{
+                        style={[{
                             fontFamily: 'Lexend-Medium',
                             fontSize: 16,
                             lineHeight: 16,
-                        }}
+                        },props.titleStyle]}
                     >
                         {props.title}
                     </AppText>
 
-                    <AppText
-                        style={{
-                            fontFamily: 'Lexend-Light',
-                            fontSize: 14,
-                            lineHeight: 17.5,
-                            color: '#8A8787'
-                        }}
-                    >
-                        {props.subTitle}
-                    </AppText>
+                    {props.subTitle &&
+                        <AppText
+                            style={[{
+                                fontFamily: 'Lexend-Light',
+                                fontSize: 14,
+                                lineHeight: 17.5,
+                                color: '#8A8787'
+                            }, props.subTitleStyle]}
+                        >
+                            {props.subTitle}
+                        </AppText>
+                    }
 
                 </View>
 
