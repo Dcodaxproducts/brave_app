@@ -5,7 +5,7 @@ import colors from '../../Config/colors';
 
 
 const AppText = (props:{
-    children?: string | number,
+    children?: string | number | string[] | ReactNode,
     style?:TextStyle | TextStyle[] | any[],
     otherProps?:TextProps,
     type?:string

@@ -33,7 +33,7 @@ const SliderBannerComp = () => {
                 resizeMode={'cover'}
                 ImageComponentStyle={{ borderRadius: 22, }}
                 imageLoadingColor="#2196F3"
-                currentImageEmitter={(index: string) => console.log('>>>>>>> ', index)}
+                // currentImageEmitter={(index: string) => console.log('>>>>>>> ', index)}
                 dotStyle={{
                     width: wp('2.2216'),
                     height: wp('2.2216'),

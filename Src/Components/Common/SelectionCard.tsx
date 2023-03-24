@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Shadow } from 'react-native-shadow-2';
 import { ViewStyle } from 'react-native';
 import { TextStyle } from 'react-native';
+import ScreenStyle from '../../Config/Styles/common/ScreenStyle';
 
 const SelectionCard = (props: {
     title?: string,

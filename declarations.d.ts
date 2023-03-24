@@ -4,3 +4,7 @@ declare module "*.svg" {
   const content: React.FC<SvgProps>;
   export default content;
 }
+
+declare module 'react-native-otp-textinput';
+declare module 'react-native-countdown-timer-hooks';
+declare module "react-native-image-slider-box";

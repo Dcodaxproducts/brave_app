@@ -9,8 +9,12 @@ import AppText from '../../Components/Text/AppText';
 import { ViewStyle } from 'react-native';
 import SeparatorSvg from '../../Assets/svgs/Common/separator.svg'
 import AppButton from '../../Components/Common/AppButton';
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 
-const DocumentScreen = () => {
+const InvestAccountScreen = () => {
+
+    const navigation:NavigationProp<ParamListBase>=useNavigation();
+
     return (
         <View style={ScreenStyle}>
 
@@ -83,8 +87,9 @@ const DocumentScreen = () => {
             />
 
             <AppButton
-                title='Go to Bank'
+                title='Go to Invest Source'
                 isSec
+                onPress={()=> navigation.navigate('invest')}
                 style={{
                     position: 'absolute',
                     bottom: ScreenStyle.paddingVertical
@@ -99,7 +104,7 @@ const styles = StyleSheet.create({
     container: {},
 });
 
-export default DocumentScreen;
+export default InvestAccountScreen;
 
 
 const Comp = (props: {

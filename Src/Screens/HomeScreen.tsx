@@ -14,9 +14,14 @@ import Credit from '../Assets/svgs/Home/credit.svg';
 import Venture from '../Assets/svgs/Home/venture.svg';
 import FAQsCard from '../Components/HomeScreen/FAQsCard';
 import ScreenStyle from '../Config/Styles/common/ScreenStyle';
+import {useNavigation,ParamListBase, NavigationProp} from '@react-navigation/native'
+
 const HomeScreen = (props: {
-    navigation: any
+    // navigation: any
 }) => {
+
+        const navigation:NavigationProp<ParamListBase>=useNavigation();
+
     return (
 
         <ScrollView>
@@ -47,7 +52,7 @@ const HomeScreen = (props: {
                         marginTop: hp('4.0252%')
                     }}
                     isSec
-                    onPress={() => props.navigation.navigate('surveyOverView')}
+                    onPress={() => navigation.navigate('surveyOverView')}
                 />
 
                 <Separator
@@ -164,18 +169,22 @@ const HomeScreen = (props: {
 
                 <FAQsCard
                     title='How do Phoenix fees work?'
+                    onPress={()=> navigation.navigate('document')}
                 />
 
                 <FAQsCard
                     title='How does Phoenix protect my portfolio from market downturn?'
+                    onPress={()=> navigation.navigate('document')}
                 />
 
                 <FAQsCard
                     title='What if I need to withdraw my money?'
+                    onPress={()=> navigation.navigate('document')}
                 />
 
                 <FAQsCard
                     title='What types of investing accounts does Phoenix offer?'
+                    onPress={()=> navigation.navigate('document')}
                 />
 
                 <AppButton

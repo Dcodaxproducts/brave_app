@@ -12,6 +12,7 @@ const NewsScreen = () => {
     return (
             <ScrollView
                 showsVerticalScrollIndicator={false}
+                style={{flex:1, backgroundColor:'white'}}
             >
         <View style={styles.container}>
 

@@ -11,8 +11,13 @@ import SurveyScreen from '../Screens/SurveyScreen';
 import AssetsDetailScreen from '../Screens/AssetDetailScreen';
 import ProfileScreen from '../Screens/AccountScreens/ProfileScreen';
 import TransferScreen from '../Screens/AccountScreens/TransferScreen';
-import DocumentScreen from '../Screens/AccountScreens/DocumentScreen';
 import ForgotPaswordScreen from '../Screens/ForgotPaswordScreen';
+import InvestAccountScreen from '../Screens/AccountScreens/InvestAccountScreen';
+import InvestScreen from '../Screens/AccountScreens/InvestScreen';
+import FeesScreen from '../Screens/AccountScreens/FeesScreen';
+import SecurityScreen from '../Screens/AccountScreens/SecurityScreen';
+import RewardsScreen from '../Screens/AccountScreens/RewardScreen/RewardsScreen';
+import DocumentScreen from '../Screens/CommonScreens/DocumentScreen';
 
 const Stack = createStackNavigator();
 
@@ -55,12 +60,12 @@ export default function StackNav() {
                 name='forgot'
                 component={ForgotPaswordScreen}
                 options={{
-                   headerShown:false
+                    headerShown: false
                 }}
             />
 
             <Stack.Screen
-                name="bottomTab"
+                name="loggedIn"
                 component={BottomTab}
                 options={{
                     headerShown: false
@@ -130,6 +135,22 @@ export default function StackNav() {
                 name='transfer'
                 component={TransferScreen}
                 options={{
+                    title: 'Account Activity'
+                }}
+            />
+
+            <Stack.Screen
+                name='investAccount'
+                component={InvestAccountScreen}
+                options={{
+                    title: 'Invest Account'
+                }}
+            />
+
+            <Stack.Screen
+                name='invest'
+                component={InvestScreen}
+                options={{
                     title: 'Invest'
                 }}
             />
@@ -138,7 +159,31 @@ export default function StackNav() {
                 name='document'
                 component={DocumentScreen}
                 options={{
-                    title: 'Invest Account'
+                    title: 'Documents'
+                }}
+            />
+
+            <Stack.Screen
+                name='fees'
+                component={FeesScreen}
+                options={{
+                    title: 'Fees'
+                }}
+            />
+
+            <Stack.Screen
+                name='security'
+                component={SecurityScreen}
+                options={{
+                    title: 'Security'
+                }}
+            />
+
+            <Stack.Screen
+                name='rewards'
+                component={RewardsScreen}
+                options={{
+                    title: 'Rewards'
                 }}
             />
 

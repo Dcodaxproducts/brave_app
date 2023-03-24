@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: wp('5.555%'),
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor:colors.foreground
+        // backgroundColor:'transparent'
     },
 });
 

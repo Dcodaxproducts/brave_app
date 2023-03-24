@@ -11,7 +11,7 @@ import { TextStyle } from 'react-native';
 
 const AppField = (props: {
     placeholder?: string,
-    fieldName: string,
+    fieldName?: string,
     iconOnPress?: () => void,
     icon?: string,
     leftIcon?: string,
@@ -88,7 +88,8 @@ const AppField = (props: {
                     selectionColor={colors.primary}
                     // ref={textInputRef}
                     // value={values[formikName]}
-                    value={props.value}
+                    defaultValue={props.value}
+                    // value={props.value}
                     onFocus={() => setTextInputIsFocused(true)}
                     onBlur={() => {
                         setTextInputIsFocused(false)
@@ -106,7 +107,7 @@ const AppField = (props: {
                         <Icon
                             name={props.icon}
                             size={20}
-                            color={props.iconColor}
+                            color={textInputIsFocused ? colors.primary : props.iconColor}
                         />
 
                     </TouchableOpacity>

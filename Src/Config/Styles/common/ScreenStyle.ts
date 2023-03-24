@@ -8,5 +8,5 @@ export default{
     backgroundColor: colors.foreground,
     paddingVertical: hp('4.858%'),
     paddingHorizontal: wp('5.554%'),
-    elevation: 80,
+    elevation: 10,
 }

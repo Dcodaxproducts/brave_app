@@ -51,18 +51,21 @@ const AccountScreen = () => {
                     title='Fees'
                     subTitle='Your Titan Advisory Fee'
                     svgComp={<FeesSvg width={wp('7')} height={wp('7')} />}
+                    onPress={()=> navigation.navigate('fees')}
                 />
 
                 <SelectionCard
                     title='Security'
                     subTitle='Login Prefer., Two-step Ver.'
                     svgComp={<SecuritySvg width={wp('7')} height={wp('7')} />}
+                    onPress={()=> navigation.navigate('security')}
                 />
 
                 <SelectionCard
                     title='Rewards'
                     subTitle='Refer, Gift Cards & Promo Code'
                     svgComp={<RewardsSvg width={wp('7')} height={wp('7')} />}
+                    onPress={()=> navigation.navigate('rewards')}
                 />
 
                 <SelectionCard
