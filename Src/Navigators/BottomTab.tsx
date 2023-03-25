@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import HomeScreen from '../Screens/HomeScreen';
+import HomeScreen from '../Screens/Home/HomeScreen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeIcon from '../Assets/svgs/BottomTab/home.svg';
 import AssetsIcon from '../Assets/svgs/BottomTab/assets.svg'

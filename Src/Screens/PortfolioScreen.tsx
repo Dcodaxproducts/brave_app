@@ -6,13 +6,12 @@ import BigIcon from '../Assets/svgs/Portfolio/BigIcon.svg';
 import AppText from '../Components/Text/AppText';
 import ProgressCom from '../Components/PortfolioScreen/ProgressCom';
 import AppButton from '../Components/Common/AppButton';
+import ScreenContainer from '../Components/Common/ScreenContainer';
 
 const PortfolioScreen = () => {
     return (
 
-        <ScrollView>
-
-            <View style={styles.container}>
+        <ScreenContainer>
 
                 <View
                     style={{
@@ -140,19 +139,17 @@ const PortfolioScreen = () => {
 
                 <AppText
                     style={{
-                        alignSelf:'center',
-                        lineHeight:20,
-                        marginTop:hp('1.388'),
-                        marginBottom:hp('5.1356'),
-                        color:colors.fontLighBlack 
+                        alignSelf: 'center',
+                        lineHeight: 20,
+                        marginTop: hp('1.388'),
+                        marginBottom: hp('5.1356'),
+                        color: colors.fontLighBlack
                     }}
                 >
                     You can fine-tune our recommendation later.
                 </AppText>
 
-            </View>
-
-        </ScrollView>
+        </ScreenContainer>
     );
 };
 

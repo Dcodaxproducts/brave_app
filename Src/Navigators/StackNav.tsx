@@ -1,6 +1,6 @@
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack';
 import colors from '../Config/colors';
-import HomeScreen from '../Screens/HomeScreen';
+import HomeScreen from '../Screens/Home/HomeScreen';
 import LoginScreen from '../Screens/LoginScreen';
 import SignUpScreen from '../Screens/SignUpScreen';
 import { getHeaderTitle } from "@react-navigation/elements";
@@ -18,6 +18,8 @@ import FeesScreen from '../Screens/AccountScreens/FeesScreen';
 import SecurityScreen from '../Screens/AccountScreens/SecurityScreen';
 import RewardsScreen from '../Screens/AccountScreens/RewardScreen/RewardsScreen';
 import DocumentScreen from '../Screens/CommonScreens/DocumentScreen';
+import AssetsCard from '../Components/AssetsScreen/AssetsCard';
+import AssetScreen from '../Screens/Home/AssetScreen';
 
 const Stack = createStackNavigator();
 
@@ -184,6 +186,14 @@ export default function StackNav() {
                 component={RewardsScreen}
                 options={{
                     title: 'Rewards'
+                }}
+            />
+
+            <Stack.Screen
+                name='asset'
+                component={AssetScreen}
+                options={{
+                    title: 'Venture Capital'
                 }}
             />
 

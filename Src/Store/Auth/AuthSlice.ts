@@ -6,28 +6,28 @@ const initialState = {
   error: null,
 };
 
-const SignupSlice = createSlice({
-  name: 'Signup',
+const AuthSlice = createSlice({
+  name: 'Auth',
   initialState,
   reducers: {
-    signUpRequest(state) {
+    authRequest(state) {
       state.isLoading = true;
       state.error = null;
     },
-    signUpSuccess(state, action) {
+    authSuccess(state, action) {
       state.isLoading = false;
       state.user = action.payload;
       state.error = null;
     },
-    signUpFailure(state, action) {
+    authFailure(state, action) {
       state.isLoading = false;
       state.error = action.payload;
     },
-    removeSignupError(state,action){
+    removeAuthError(state,action){
       state.error=null;
     }
   },
 });
 
-export const { signUpRequest, signUpSuccess, signUpFailure,removeSignupError } = SignupSlice.actions;
-export default SignupSlice.reducer;
+export const { authRequest, authSuccess, authFailure,removeAuthError } = AuthSlice.actions;
+export default AuthSlice.reducer;

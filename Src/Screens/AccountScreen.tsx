@@ -14,11 +14,14 @@ import LearnSvg from '../Assets/svgs/Account/learn.svg';
 import SupportSvg from '../Assets/svgs/Account/support.svg';
 import AppButton from '../Components/Common/AppButton';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 
 const AccountScreen = () => {
 
     const navigation:NavigationProp<ParamListBase>=useNavigation();
+
+    const user = useSelector((state: any) => state.AuthReducer.user);
 
     return (
 
@@ -28,7 +31,7 @@ const AccountScreen = () => {
 
                 <SelectionCard
                     title='Profile'
-                    subTitle='kylehill47@gmail.com'
+                    subTitle={user.email}
                     svgComp={<ProfileSvg width={wp('7')} height={wp('7')} />}
                     onPress={()=> navigation.navigate('profile')}
                 />

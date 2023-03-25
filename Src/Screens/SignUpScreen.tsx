@@ -1,21 +1,20 @@
-import { useNavigation, NavigationProp, ParamListBase } from '@react-navigation/native';
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import React, { useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View, Modal } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Toast from 'react-native-toast-message';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import LoadingCard from '../Components/Common/LoadingCard';
 import FormField from '../Components/Form/FormField';
 import FormikForm from '../Components/Form/FormikForm';
 import SubmitButton from '../Components/Form/SubmitButton';
 import AppText from '../Components/Text/AppText';
 import colors from '../Config/colors';
 import ScreenStyle from '../Config/Styles/common/ScreenStyle';
-import { SignupUser } from '../Store/UserRegistration/AsyncThunkOperations/SignupUser';
-import { removeSignupError } from '../Store/UserRegistration/SignupSlice';
+import { SignupUser } from '../Store/Auth/AsyscThunkOperations/SignupUser';
+import { removeAuthError } from '../Store/Auth/AuthSlice';
 
 const validationSchema = Yup.object().shape({
     name: Yup.string().min(3).max(60).required().label("* Name"),
@@ -33,19 +32,14 @@ const SignUpScreen = () => {
     const navigation: NavigationProp<ParamListBase> = useNavigation();
 
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-    const isLoading = useSelector((state: any) => state.SignupReducer.isLoading);
-    const signupError = useSelector((state: any) => state.SignupReducer.error);
-    const user = useSelector((state: any) => state.SignupReducer.user);
-
-    console.log('isLoading:', isLoading)
-    console.log('error:', signupError)
-    console.log('data: ', user)
+    const signupError = useSelector((state: any) => state.AuthReducer.error);
+    const user = useSelector((state: any) => state.AuthReducer.user);
 
     useEffect(() => {
         if (signupError) Toast.show({
             type: 'error',
             text1: signupError,
-            onHide: () => dispatch(removeSignupError(true))
+            onHide: () => dispatch(removeAuthError(true))
         })
     }, [signupError])
 
@@ -212,16 +206,6 @@ const SignUpScreen = () => {
                 </View>
 
             </ScrollView>
-
-            <Modal
-                visible={isLoading}
-                animationType={'fade'}
-                transparent
-            >
-
-                <LoadingCard/>
-
-            </Modal>
 
         </>
     );

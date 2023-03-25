@@ -1,5 +1,5 @@
 import { AsyncThunkAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { signUpRequest, signUpSuccess, signUpFailure } from '../SignupSlice';
+import { authRequest, authSuccess, authFailure } from '../AuthSlice';
 import axios from 'axios';
 import config from '../../../Config/config';
 
@@ -7,9 +7,9 @@ interface RegistrationFields {
     first_name: string, last_name: string, email: string, password: string, c_password: string
 }
 
-export const SignupUser = createAsyncThunk('Signup/SignupUser', async (props: RegistrationFields, thunkAPI) => {
+export const SignupUser = createAsyncThunk('Auth/SignupUser', async (props: RegistrationFields, thunkAPI) => {
 
-    thunkAPI.dispatch(signUpRequest());
+    thunkAPI.dispatch(authRequest());
 
     try {
         const response = await axios.post(config.baseUrl + 'register', {
@@ -28,15 +28,15 @@ export const SignupUser = createAsyncThunk('Signup/SignupUser', async (props: Re
             country:'',
         });
 
-        thunkAPI.dispatch(signUpSuccess(response.data));
+        thunkAPI.dispatch(authSuccess({token:response.data.data.token, ...response.data.data.user}));
 
     } catch (error: any) {
-        if (error.response.status == 500) thunkAPI.dispatch(signUpFailure('Internal Server Error.'));
+        if (error.response.status == 500) thunkAPI.dispatch(authFailure('Internal Server Error.'));
         else if (error.response.status == 400) {
-            if (error.response.data.error?.email[0]=='The email has already been taken.') thunkAPI.dispatch(signUpFailure('This email address is already registered.'));
-            else thunkAPI.dispatch(signUpFailure('Validation Error'))
+            if (error.response.data.error?.email[0]=='The email has already been taken.') thunkAPI.dispatch(authFailure('This email address is already registered.'));
+            else thunkAPI.dispatch(authFailure('Validation Error'))
         }
-        else thunkAPI.dispatch(signUpFailure('Something Went Wrong.'));
+        else thunkAPI.dispatch(authFailure('Something Went Wrong.'));
     }
 
 });

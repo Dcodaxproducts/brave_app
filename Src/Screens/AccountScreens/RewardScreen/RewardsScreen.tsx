@@ -9,6 +9,7 @@ import SeparatorSvg from '../../../Assets/svgs/Common/separator.svg';
 import CupSvg from '../../../Assets/svgs/Rewards/cup.svg';
 import DollorSvg from '../../../Assets/svgs/Rewards/dollor.svg';
 import StarsSvg from '../../../Assets/svgs/Rewards/stars.svg';
+import TechDescriptionCard from '../../../Components/Common/TechDescriptionCard';
 
 const RewardsScreen = () => {
     return (
@@ -130,19 +131,19 @@ const RewardsScreen = () => {
                 }}
             >
 
-                <Comp
+                <TechDescriptionCard
                     SvgComp={<CupSvg />}
                     title={'Get rewarded for each referral'}
                     subTitle={'Each time your friend signs up and makes a deposit, you’ll get a cash reward.'}
                 />
 
-                <Comp
+                <TechDescriptionCard
                     SvgComp={<DollorSvg />}
                     title={'Earn $50 Cash'}
                     subTitle={'You’ll earn $50 Cash for each referral and can immediately start saving with 3.2% Cash APY.'}
                 />
 
-                <Comp
+                <TechDescriptionCard
                     SvgComp={<StarsSvg />}
                     title={'You friend wins, too'}
                     subTitle={'When your friend signs up and invests, they’ll get 3 months off Brave Advisory fees.'}
@@ -155,62 +156,3 @@ const RewardsScreen = () => {
 }
 
 export default RewardsScreen;
-
-const Comp = (props: {
-    SvgComp?: ReactNode,
-    title?: string,
-    subTitle?: string
-}): JSX.Element => {
-    return (
-
-        <View
-            style={{
-                flexDirection: 'row',
-                marginBottom: hp('2.4984')
-            }}
-        >
-
-            {props.SvgComp}
-
-            <View
-                style={{
-                    marginLeft: wp('4.1655'),
-                }}
-            >
-
-                <AppText
-                    style={{
-                        fontFamily: 'Lexend-SemiBold',
-                        fontSize: 16,
-                        lineHeight: 20,
-                    }}
-                >
-                    {props.title}
-                </AppText>
-
-                {/* <View
-                    style={{
-                        marginTop: hp('0.694'),
-                        backgroundColor: 'red',
-                        width: '100%',
-                        flexDirection:'row'
-
-                    }}
-                > */}
-                <AppText
-                    style={{
-                        lineHeight: 22,
-                        color: colors.fontLighBlack,
-                        textAlign: 'justify',
-                        marginTop: hp('0.694')
-                    }}
-                >
-                    {props.subTitle}
-                </AppText>
-                {/* </View> */}
-
-            </View>
-
-        </View>
-    );
-}

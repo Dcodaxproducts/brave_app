@@ -1,17 +1,20 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import ScreenStyle from '../../Config/Styles/common/ScreenStyle';
-import BackgroundSvg from '../../Assets/svgs/Account/Profile/background.svg';
-import { Image } from 'react-native';
+import React from 'react';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { Shadow } from 'react-native-shadow-2';
-import AppText from '../../Components/Text/AppText';
-import AppField from '../../Components/Fields/AppField';
-import colors from '../../Config/colors';
+import { useSelector } from 'react-redux';
+import BackgroundSvg from '../../Assets/svgs/Account/Profile/background.svg';
 import ImportSvg from '../../Assets/svgs/Account/Profile/import.svg';
 import AppButton from '../../Components/Common/AppButton';
+import AppField from '../../Components/Fields/AppField';
+import AppText from '../../Components/Text/AppText';
+import colors from '../../Config/colors';
+import ScreenStyle from '../../Config/Styles/common/ScreenStyle';
 
 const ProfileScreen = () => {
+
+    const user = useSelector((state: any) => state.AuthReducer.user);
+
     return (
 
         <ScrollView>
@@ -35,7 +38,7 @@ const ProfileScreen = () => {
                     }}
                 >
                     <Image
-                        source={{ uri: 'https://images.unsplash.com/photo-1604072366595-e75dc92d6bdc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80' }}
+                        source={user.image ? { uri: user.image } : require('../../Assets/images/avator.png')}
                         style={{
                             width: wp('26.6592'),
                             height: wp('26.6592'),
@@ -55,7 +58,7 @@ const ProfileScreen = () => {
                         marginTop: hp('2')
                     }}
                 >
-                    Olivia Rhye
+                    {user.first_name +' '+ user.last_name}
                 </AppText>
 
                 <AppText
@@ -67,7 +70,7 @@ const ProfileScreen = () => {
                         color: '#667085'
                     }}
                 >
-                    olivia@untitledui.com
+                    {user.email}
                 </AppText>
 
                 <View
@@ -123,7 +126,7 @@ const ProfileScreen = () => {
                             textInputHeight={hp('6.1072')}
                             titleStyle={{ fontSize: 14, marginBottom: hp('0.8328') }}
                             textInputStyle={{ paddingHorizontal: wp('3') }}
-                            value='Oliva'
+                            value={user.first_name}
                         />
 
                         <AppField
@@ -133,7 +136,7 @@ const ProfileScreen = () => {
                             textInputHeight={hp('6.1072')}
                             titleStyle={{ fontSize: 14, marginBottom: hp('0.8328') }}
                             textInputStyle={{ paddingHorizontal: wp('3') }}
-                            value={'Rhye'}
+                            value={user.last_name}
                         />
 
                         <AppField
@@ -143,13 +146,13 @@ const ProfileScreen = () => {
                             textInputHeight={hp('6.1072')}
                             titleStyle={{ fontSize: 14, marginBottom: hp('0.8328') }}
                             textInputStyle={{ paddingHorizontal: wp('3') }}
-                            value={'olivia@untitledui.com'}
+                            value={user.email}
                             leftIcon={'email-outline'}
                             iconColor="#667085"
                         />
 
                         <Image
-                            source={{ uri: 'https://images.unsplash.com/photo-1604072366595-e75dc92d6bdc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80' }}
+                            source={user.image ? { uri: user.image } : require('../../Assets/images/avator.png')}
                             style={{
                                 width: wp('17.7728'),
                                 height: wp('17.7728'),
