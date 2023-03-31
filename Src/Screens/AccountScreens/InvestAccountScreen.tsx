@@ -10,13 +10,14 @@ import { ViewStyle } from 'react-native';
 import SeparatorSvg from '../../Assets/svgs/Common/separator.svg'
 import AppButton from '../../Components/Common/AppButton';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import ScreenContainer from '../../Components/Common/ScreenContainer';
 
 const InvestAccountScreen = () => {
 
-    const navigation:NavigationProp<ParamListBase>=useNavigation();
+    const navigation: NavigationProp<ParamListBase> = useNavigation();
 
     return (
-        <View style={ScreenStyle}>
+        <ScreenContainer>
 
             <SelectionCard
                 title='$ 50000.45'
@@ -89,14 +90,14 @@ const InvestAccountScreen = () => {
             <AppButton
                 title='Go to Invest Source'
                 isSec
-                onPress={()=> navigation.navigate('invest')}
+                onPress={() => navigation.navigate('invest')}
                 style={{
                     position: 'absolute',
-                    bottom: ScreenStyle.paddingVertical
+                    bottom:ScreenStyle.paddingVertical
                 }}
             />
 
-        </View>
+        </ScreenContainer>
     );
 };
 

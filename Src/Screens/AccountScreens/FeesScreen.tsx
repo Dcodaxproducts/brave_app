@@ -1,29 +1,35 @@
-import React from 'react';
-import { View } from 'react-native';
+import React,{ useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import ScreenContainer from '../../Components/Common/ScreenContainer';
 import AppText from '../../Components/Text/AppText';
 import colors from '../../Config/colors';
-import ScreenStyle from '../../Config/Styles/common/ScreenStyle';
-
-// import { Container } from './styles';
+import { GetFees } from '../../Store/Fees/AsyscThunkOperations/GetFees';
 
 const FeesScreen = () => {
+
+    const FEES_STR= useSelector((state:any)=> state.FeesReducer.string);
+    const dispatch=useDispatch<any>();
+    
+    useEffect(()=>{
+        // if(!FEES_STR){
+            dispatch(GetFees());
+        // }
+    },[FEES_STR])
+
     return (
-        <View
-            style={ScreenStyle}
-        >
+        <ScreenContainer>
 
             <AppText
                 style={{
-                    lineHeight:22,
-                    color:colors.fontLighBlack,
-                    textAlign:'justify'
+                    lineHeight: 22,
+                    color: colors.fontLighBlack,
+                    textAlign: 'justify'
                 }}
             >
-                Venture capital is typically high risk, high reward, but offers investors the ability to get in at the ground floor of some od the world’s most promising startups. It can be an attractive investment as it provides access to innovative companies throughout their private and public lifecycles.{'\n'}{'\n'}
-                Typically venture capital is not available to non accredited retail investors. On Brave, you can add venture to your portfolio and access innovative companies from a broad range of industries from artificial intelligence to DNA sequencing  to blockchain technology. With ARK, you can seek liquidity on a quarterly basis.
+                {FEES_STR}
             </AppText>
 
-        </View>
+        </ScreenContainer>
     );
 }
 export default FeesScreen;

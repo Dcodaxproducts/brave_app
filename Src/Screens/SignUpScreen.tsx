@@ -1,10 +1,9 @@
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 import { ThunkDispatch } from '@reduxjs/toolkit';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import Toast from 'react-native-toast-message';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import FormField from '../Components/Form/FormField';
@@ -12,9 +11,7 @@ import FormikForm from '../Components/Form/FormikForm';
 import SubmitButton from '../Components/Form/SubmitButton';
 import AppText from '../Components/Text/AppText';
 import colors from '../Config/colors';
-import ScreenStyle from '../Config/Styles/common/ScreenStyle';
 import { SignupUser } from '../Store/Auth/AsyscThunkOperations/SignupUser';
-import { removeAuthError } from '../Store/Auth/AuthSlice';
 
 const validationSchema = Yup.object().shape({
     name: Yup.string().min(3).max(60).required().label("* Name"),
@@ -35,24 +32,10 @@ const SignUpScreen = () => {
     const signupError = useSelector((state: any) => state.AuthReducer.error);
     const user = useSelector((state: any) => state.AuthReducer.user);
 
-    useEffect(() => {
-        if (signupError) Toast.show({
-            type: 'error',
-            text1: signupError,
-            onHide: () => dispatch(removeAuthError(true))
-        })
-    }, [signupError])
-
-    useEffect(() => {
-        if (user) navigation.navigate('loggedIn')
-    }, [user])
-
     return (
         <>
-            <ScrollView
-                style={styles.container}
-                contentContainerStyle={{ paddingBottom: ScreenStyle.paddingVertical }}
-            >
+
+            <ScrollView>
 
                 <LinearGradient
                     colors={['rgba(79, 64, 255, 0.15)', 'rgba(79, 64, 255, 0)']}
@@ -83,12 +66,14 @@ const SignUpScreen = () => {
 
                     <FormikForm
                         initialValues={{ name: '', email: '', password: '' }}
-                        onSubmit={ (values) => {
+                        onSubmit={(values) => {
                             console.log('values: ', values);
 
+                            const name:string=values.name.trimStart()
+
                             const fields = {
-                                first_name: values.name.substring(0, values.name.indexOf(' ')),
-                                last_name: values.name.substring(values.name.indexOf(' ') + 1),
+                                first_name: name.substring(0, name.indexOf(' ') >= 0 ? name.indexOf(' ') : name.length),
+                                last_name: name.indexOf(' ')>=0 ? name.substring(name.indexOf(' ') + 1) : '',
                                 email: values.email,
                                 password: values.password,
                                 c_password: values.password,
@@ -174,7 +159,8 @@ const SignUpScreen = () => {
                     <View
                         style={{
                             flexDirection: 'row',
-                            marginTop: hp('8.883')
+                            marginTop: hp('8.883'),
+                            marginBottom:hp('4')
                         }}
                     >
 

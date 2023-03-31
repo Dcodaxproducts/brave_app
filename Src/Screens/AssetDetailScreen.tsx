@@ -10,6 +10,7 @@ import PerformanceScreen from './AssetDetailTabScreen/PerformanceScreen';
 import ManagersScreen from './AssetDetailTabScreen/ManagersScreen';
 import HoldingsScreen from './AssetDetailTabScreen/HoldingsScreen';
 import DisclosuresScreen from './AssetDetailTabScreen/DisclosuresScreen';
+import ScreenContainer from '../Components/Common/ScreenContainer';
 
 
 const AssetsDetailScreen = (props: {
@@ -22,49 +23,43 @@ const AssetsDetailScreen = (props: {
 
     return (
 
-        <ScrollView
-            showsVerticalScrollIndicator={false}
-        >
+        <ScreenContainer>
 
-            <View style={[ScreenStyle, { paddingBottom: ScreenStyle.paddingTop }]}>
+            <AppText
+                style={{
+                    fontFamily: 'Lexend-SemiBold',
+                    fontSize: 22,
+                    lineHeight: 27.5
+                }}
+            >
+                {title}
+            </AppText>
 
-                <AppText
-                    style={{
-                        fontFamily: 'Lexend-SemiBold',
-                        fontSize: 22,
-                        lineHeight: 27.5
-                    }}
-                >
-                    {title}
-                </AppText>
+            <AppText
+                style={{
+                    lineHeight: 22,
+                    color: colors.fontLighBlack,
+                    marginTop: hp('0.9716')
+                }}
+            >
+                Learn more about our industry leading partners and their investment strategies.
+            </AppText>
 
-                <AppText
-                    style={{
-                        lineHeight: 22,
-                        color: colors.fontLighBlack,
-                        marginTop: hp('0.9716')
-                    }}
-                >
-                    Learn more about our industry leading partners and their investment strategies.
-                </AppText>
+            <TopTabComp
+                onSelected={(item) => setSelected(item)}
+            />
 
-                <TopTabComp
-                    onSelected={(item) => setSelected(item)}
-                />
+            {selected == 'Overview' && <OverviewScreen />}
 
-                    {selected == 'Overview' && <OverviewScreen />}
-                    
-                    {selected == 'Performance' && <PerformanceScreen />}
+            {selected == 'Performance' && <PerformanceScreen />}
 
-                    {selected == 'Managers' && <ManagersScreen />}
+            {selected == 'Managers' && <ManagersScreen />}
 
-                    {selected == 'Holdings' && <HoldingsScreen />}
+            {selected == 'Holdings' && <HoldingsScreen />}
 
-                    {selected == 'Disclosures' && <DisclosuresScreen/>}
+            {selected == 'Disclosures' && <DisclosuresScreen />}
 
-            </View>
-
-        </ScrollView>
+        </ScreenContainer>
 
     );
 };

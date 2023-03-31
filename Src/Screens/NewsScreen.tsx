@@ -7,62 +7,58 @@ import NewsSelectionTypeComp from '../Components/NewsScreen.tsx/NewsSelectionTyp
 import RecommendedCard from '../Components/NewsScreen.tsx/RecommendedCard';
 import AppText from '../Components/Text/AppText';
 import colors from '../Config/colors';
+import ScreenContainer from '../Components/Common/ScreenContainer';
 
 const NewsScreen = () => {
     return (
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                style={{flex:1, backgroundColor:'white'}}
+
+        <ScreenContainer>
+
+            <SearchField
+                placeholder='Search News...'
+            />
+
+            <NewsSelectionTypeComp
+                items={['All', 'Business', 'Political', 'Sport']}
+            />
+
+            <SliderBannerComp />
+
+            <AppText
+                type='title'
+                style={{
+                    marginTop: hp('5.552')
+                }}
             >
-        <View style={styles.container}>
+                Recommend
+            </AppText>
 
+            <RecommendedCard
+                data={[
+                    {
+                        type: 'Medicine',
+                        title: 'Super doctors in total genetics',
+                        description: 'Lorem ipsum dolor amet sed diam euismod tincidunt sit nonummy. ',
+                        imageUri: 'https://img.freepik.com/premium-photo/alternative-medicine-herbal-organic-capsule-with-vitamin-e-omega-3-fish-oil-mineral-drug-with-herbs-leaf-natural-supplements-healthy-good-life_39768-4755.jpg?w=2000',
+                    },
+                    {
+                        type: 'Business',
+                        title: 'How Netflix brings safer & faster More...',
+                        description: 'Lorem ipsum dolor amet sed diam euismod. ',
+                        imageUri: 'https://assets.entrepreneur.com/content/3x2/2000/20191127190639-shutterstock-431848417-crop.jpeg',
+                    },
+                    {
+                        type: 'Open a Roth IRA',
+                        title: 'Super Bowl spending',
+                        description: 'Lorem ipsum dolor amet sed diam euismod tincidunt sit nonummy. ',
+                        imageUri: 'https://s35691.pcdn.co/wp-content/uploads/2018/11/community.jpg',
+                    },
 
-                <SearchField
-                    placeholder='Search News...'
-                />
+                ]}
+            />
 
-                <NewsSelectionTypeComp
-                    items={['All', 'Business', 'Political', 'Sport']}
-                />
+        </ScreenContainer>
 
-                <SliderBannerComp />
-
-                <AppText
-                    type='title'
-                    style={{
-                        marginTop: hp('5.552')
-                    }}
-                >
-                    Recommend
-                </AppText>
-
-                <RecommendedCard
-                    data={[
-                        {
-                            type: 'Medicine',
-                            title: 'Super doctors in total genetics',
-                            description: 'Lorem ipsum dolor amet sed diam euismod tincidunt sit nonummy. ',
-                            imageUri: 'https://img.freepik.com/premium-photo/alternative-medicine-herbal-organic-capsule-with-vitamin-e-omega-3-fish-oil-mineral-drug-with-herbs-leaf-natural-supplements-healthy-good-life_39768-4755.jpg?w=2000',
-                        },
-                        {
-                            type: 'Business',
-                            title: 'How Netflix brings safer & faster More...',
-                            description: 'Lorem ipsum dolor amet sed diam euismod. ',
-                            imageUri: 'https://assets.entrepreneur.com/content/3x2/2000/20191127190639-shutterstock-431848417-crop.jpeg',
-                        },
-                        {
-                            type: 'Open a Roth IRA',
-                            title: 'Super Bowl spending',
-                            description: 'Lorem ipsum dolor amet sed diam euismod tincidunt sit nonummy. ',
-                            imageUri: 'https://s35691.pcdn.co/wp-content/uploads/2018/11/community.jpg',
-                        },
-
-                    ]}
-                />
-
-
-        </View>
-            </ScrollView>
     );
 };
 

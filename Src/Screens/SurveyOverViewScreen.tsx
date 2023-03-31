@@ -1,20 +1,21 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import ScreenStyle from '../Config/Styles/common/ScreenStyle';
-import BigImage from '../Assets/svgs/SurveyOverView/BigImage.svg';
-import AppText from '../Components/Text/AppText';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import colors from '../Config/colors';
-import AppButton from '../Components/Common/AppButton';
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import BigImage from '../Assets/svgs/SurveyOverView/BigImage.svg';
+import AppButton from '../Components/Common/AppButton';
+import ScreenContainer from '../Components/Common/ScreenContainer';
+import AppText from '../Components/Text/AppText';
+import colors from '../Config/colors';
 
-const SurveyOverViewScreen = (props:{
-    navigation:NavigationProp<ParamListBase>
+const SurveyOverViewScreen = (props: {
+    navigation: NavigationProp<ParamListBase>
 }) => {
     return (
-        <View style={[ScreenStyle, { alignItems: 'center' }]}>
 
-                <BigImage/>
+        <ScreenContainer>
+
+            <BigImage style={{alignSelf:'center'}} />
 
             <AppText
                 style={{
@@ -51,7 +52,7 @@ const SurveyOverViewScreen = (props:{
                 textStyle={{
                     color: colors.dark
                 }}
-                onPress={()=> props.navigation.navigate('surveyScreen')}
+                onPress={() => props.navigation.navigate('surveyScreen')}
             />
 
             <AppButton
@@ -60,12 +61,13 @@ const SurveyOverViewScreen = (props:{
                 style={{
                     marginTop: hp('1.6656')
                 }}
-                onPress={()=>{
+                onPress={() => {
                     props.navigation.navigate('Portfolio');
                 }}
             />
 
-        </View>
+        </ScreenContainer>
+
     );
 };
 

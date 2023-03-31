@@ -1,21 +1,20 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, ImageBackground, FlatList, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { FlatList, ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import AppText from '../../Components/Text/AppText';
-import colors from '../../Config/colors';
-import CheckSvg from '../../Assets/svgs/Survey/check.svg';
-import QuestionCard from '../../Components/AssetDetailScreen/OverviewScreen/QuestionCard';
+import { Shadow } from 'react-native-shadow-2';
 import Icon from 'react-native-vector-icons/Ionicons';
-import MC_Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { BlurView } from "@react-native-community/blur";
+import MC_Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import SeparatorSvg from '../../Assets/svgs/Common/separator.svg';
-import SectionCard from '../../Components/AssetDetailScreen/OverviewScreen/SectionCard';
-import PartnerOverviewCard from '../../Components/AssetDetailScreen/OverviewScreen/PartnerOverviewCard';
+import CheckSvg from '../../Assets/svgs/Survey/check.svg';
+import KeyDetails from '../../Components/AssetDetailScreen/OverviewScreen/KeyDetails';
 import LearnMoreComp from '../../Components/AssetDetailScreen/OverviewScreen/LearnMoreComp';
 import ManagerComp from '../../Components/AssetDetailScreen/OverviewScreen/ManagerComp';
+import PartnerOverviewCard from '../../Components/AssetDetailScreen/OverviewScreen/PartnerOverviewCard';
+import QuestionCard from '../../Components/AssetDetailScreen/OverviewScreen/QuestionCard';
 import RecentResearch from '../../Components/AssetDetailScreen/OverviewScreen/RecentResearch';
-import KeyDetails from '../../Components/AssetDetailScreen/OverviewScreen/KeyDetails';
-import { Shadow } from 'react-native-shadow-2';
+import SectionCard from '../../Components/AssetDetailScreen/OverviewScreen/SectionCard';
+import AppText from '../../Components/Text/AppText';
+import colors from '../../Config/colors';
 
 const OverviewScreen = () => {
     return (
@@ -196,6 +195,7 @@ const OverviewScreen = () => {
                 data={[{ title: 'Credit', subTitle: 'Asset Class' }, { title: '$811M', subTitle: 'Size as of January 31' }, { title: '+2.75% annl', subTitle: 'Historical Return' }, { title: 'Apr 2017', subTitle: 'Inception' }]}
                 keyExtractor={(item, index) => index.toString()}
                 numColumns={2}
+                scrollEnabled={false}
                 columnWrapperStyle={{
                     justifyContent: 'space-between',
                 }}
@@ -305,9 +305,9 @@ const OverviewScreen = () => {
                 distance={20}
                 startColor={colors.shadowDrop}
                 style={{
-                    width:'100%',
+                    width: '100%',
                 }}
-                containerStyle={{marginVertical:hp('3.8864')}}
+                containerStyle={{ marginVertical: hp('3.8864') }}
             >
 
                 <TouchableOpacity
@@ -323,12 +323,12 @@ const OverviewScreen = () => {
 
                     <AppText
                         style={{
-                            fontFamily:'Lexend-Medium',
-                            fontSize:16,
-                            lineHeight:20
+                            fontFamily: 'Lexend-Medium',
+                            fontSize: 16,
+                            lineHeight: 20
                         }}
                     >
-                    View Disclosures
+                        View Disclosures
                     </AppText>
 
                     <MC_Icon
@@ -336,7 +336,7 @@ const OverviewScreen = () => {
                         size={18}
                         color={colors.fontDark}
                         style={{
-                            alignSelf:'center'
+                            alignSelf: 'center'
                         }}
                     />
 

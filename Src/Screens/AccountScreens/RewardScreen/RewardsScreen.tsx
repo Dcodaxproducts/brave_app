@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { View, TouchableOpacity, Pressable,ScrollView } from 'react-native';
+import { View, TouchableOpacity, Pressable, ScrollView } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import AppButton from '../../../Components/Common/AppButton';
 import AppText from '../../../Components/Text/AppText';
@@ -10,14 +10,15 @@ import CupSvg from '../../../Assets/svgs/Rewards/cup.svg';
 import DollorSvg from '../../../Assets/svgs/Rewards/dollor.svg';
 import StarsSvg from '../../../Assets/svgs/Rewards/stars.svg';
 import TechDescriptionCard from '../../../Components/Common/TechDescriptionCard';
+import ScreenContainer from '../../../Components/Common/ScreenContainer';
+import { useNavigation, NavigationProp, ParamListBase } from '@react-navigation/native';
 
 const RewardsScreen = () => {
+
+    const navigation: NavigationProp<ParamListBase> = useNavigation();
+
     return (
-        <ScrollView
-            style={[ScreenStyle, { paddingVertical: hp('3') }]}
-            contentContainerStyle={{paddingBottom:ScreenStyle.paddingVertical}}
-            showsVerticalScrollIndicator={false}
-        >
+        <ScreenContainer>
 
             <View
                 style={{
@@ -109,17 +110,21 @@ const RewardsScreen = () => {
                     Referral History
                 </AppText>
 
-                <AppText
-                    style={{
-                        fontFamily: 'Lexend-SemiBold',
-                        fontSize: 16,
-                        lineHeight: 22,
-                        color: colors.primary,
-                        textDecorationLine: 'underline'
-                    }}
+                <TouchableOpacity
+                    onPress={()=> navigation.navigate('rewardReferralHistroy')}
                 >
-                    View
-                </AppText>
+                    <AppText
+                        style={{
+                            fontFamily: 'Lexend-SemiBold',
+                            fontSize: 16,
+                            lineHeight: 22,
+                            color: colors.primary,
+                            textDecorationLine: 'underline'
+                        }}
+                    >
+                        View
+                    </AppText>
+                </TouchableOpacity>
 
             </View>
 
@@ -127,7 +132,7 @@ const RewardsScreen = () => {
 
             <View
                 style={{
-                    marginTop:hp('1.5268')
+                    marginTop: hp('1.5268')
                 }}
             >
 
@@ -151,7 +156,7 @@ const RewardsScreen = () => {
 
             </View>
 
-        </ScrollView>
+        </ScreenContainer>
     );
 }
 

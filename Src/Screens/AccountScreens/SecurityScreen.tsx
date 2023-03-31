@@ -9,6 +9,7 @@ import OtpInput from '../../Components/Common/OtpInput';
 const OTPTextInput = require('react-native-otp-textinput');
 import Lottie from 'lottie-react-native';
 import { ParamListBase, NavigationProp, useNavigation } from '@react-navigation/native';
+import ScreenContainer from '../../Components/Common/ScreenContainer';
 
 const SecurityScreen = () => {
 
@@ -18,8 +19,8 @@ const SecurityScreen = () => {
     const navigation:NavigationProp<ParamListBase>=useNavigation();
 
     return (
-        <View
-            style={[ScreenStyle, { justifyContent: 'center',}]}
+        <ScreenContainer
+            style={{ justifyContent: 'center',}}
         >
 
             {!isOtpSend &&
@@ -128,7 +129,7 @@ const SecurityScreen = () => {
 
             }
 
-        </View>
+        </ScreenContainer>
     );
 }
 

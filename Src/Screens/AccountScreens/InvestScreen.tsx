@@ -8,11 +8,12 @@ import DollorSvg from '../../Assets/svgs/Account/Transfer/dollor.svg';
 import BankSvg from '../../Assets/svgs/Account/Transfer/bank.svg';
 import colors from '../../Config/colors';
 import AppButton from '../../Components/Common/AppButton';
+import ScreenContainer from '../../Components/Common/ScreenContainer';
 
 const InvestScreen = () => {
 
     return (
-        <View style={ScreenStyle}>
+        <ScreenContainer>
 
             <AppText
                 style={{
@@ -74,7 +75,7 @@ const InvestScreen = () => {
                 }}
             />
 
-        </View>
+</ScreenContainer>
     );
 };
 

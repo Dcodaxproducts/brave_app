@@ -26,6 +26,8 @@ const HomeScreen = (props: {
 
     const user = useSelector((state: any) => state.AuthReducer.user);
 
+    console.log('USERR ', user)
+
     return (
 
         <ScreenContainer>
@@ -33,7 +35,7 @@ const HomeScreen = (props: {
             <AppText
                 type='title'
             >
-                {`Welcome, ${user.first_name}`}
+                {`Welcome, ${user?.first_name}`}
             </AppText>
 
             <AppText
@@ -46,14 +48,16 @@ const HomeScreen = (props: {
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy euismod tincidunt dolore erat magna aliquam volutpat.
             </AppText>
 
-            <AppButton
-                title='Survey'
-                style={{
-                    marginTop: hp('4.0252%')
-                }}
-                isSec
-                onPress={() => navigation.navigate('surveyOverView')}
-            />
+            {user?.survey_complete == 'No' &&
+                <AppButton
+                    title='Survey'
+                    style={{
+                        marginTop: hp('4.0252%')
+                    }}
+                    isSec
+                    onPress={() => navigation.navigate('surveyOverView')}
+                />
+            }
 
             <Separator
                 height={1}

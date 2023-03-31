@@ -1,6 +1,7 @@
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 import { ThunkDispatch } from '@reduxjs/toolkit';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -13,9 +14,8 @@ import FormikForm from '../Components/Form/FormikForm';
 import SubmitButton from '../Components/Form/SubmitButton';
 import AppText from '../Components/Text/AppText';
 import colors from '../Config/colors';
-import ScreenStyle from '../Config/Styles/common/ScreenStyle';
 import { LoginUser } from '../Store/Auth/AsyscThunkOperations/LoginUser';
-import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+import { SignInWithGoogle } from '../Store/Auth/AsyscThunkOperations/SignInWithGoogle';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().email().required().label('* Email'),
@@ -35,41 +35,40 @@ const LoginScreen = () => {
     const isLoading = useSelector((state: any) => state.AuthReducer.isLoading);
     const user = useSelector((state: any) => state.AuthReducer.user);
 
-    console.log('USER IS: ', user)
-
-    useEffect(() => {
-        if (user) navigation.navigate('loggedIn')
-    }, [user])
-
-    const signInWithGoogle=async()=>{
+    const signInWithGoogle = async () => {
 
         try {
             GoogleSignin.configure();
             await GoogleSignin.hasPlayServices();
             const userInfo = await GoogleSignin.signIn();
 
+            dispatch(SignInWithGoogle({
+                email:userInfo.user.email,
+                first_name:userInfo.user.givenName,
+                last_name:userInfo.user.familyName,
+                google_id:userInfo.user.id,
+                image_url:userInfo.user.photo
+            }));
+
             console.log('GOOGLE SIGN IN ::::::::::::::::::: ', userInfo)
-          } catch (error:any) {
+        } catch (error: any) {
 
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-              // user cancelled the login flow
+                // user cancelled the login flow
             } else if (error.code === statusCodes.IN_PROGRESS) {
-              // operation (e.g. sign in) is in progress already
+                // operation (e.g. sign in) is in progress already
             } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-              // play services not available or outdated
+                // play services not available or outdated
             } else {
-              // some other error happened
+                // some other error happened
             }
-          }
+        }
 
     }
 
     return (
         <>
-            <ScrollView
-                style={styles.container}
-                contentContainerStyle={{ paddingBottom: ScreenStyle.paddingVertical }}
-            >
+            <ScrollView>
 
                 <LinearGradient
                     colors={['rgba(79, 64, 255, 0.15)', 'rgba(79, 64, 255, 0)']}
@@ -111,7 +110,7 @@ const LoginScreen = () => {
                             borderColor: colors.border
                         }}
                         iconComp={<GoogleIcon height={24} width={24} />}
-                        onPress={()=> signInWithGoogle()}
+                        onPress={() => signInWithGoogle()}
                     />
 
                     <View

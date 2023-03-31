@@ -15,15 +15,17 @@ const AppButton = (props: {
     isSec?:boolean,
     isTur?:boolean,
     onPress?:()=>void,
+    isDisable?:boolean,
 }) => {
 
     return (
 
         <TouchableOpacity
             onPress={props.onPress}
+            disabled={props.isDisable ? true : false}
             style={[{
                 alignItems: props.iconComp  ? undefined : 'center',
-                backgroundColor: colors.dark,
+                backgroundColor: props.isDisable ? 'rgba(0,0,0,0.5)' : colors.dark,
                 height:hp('7.8%'),
                 borderRadius: 12,
                 flexDirection: props.iconComp  ? 'row' : undefined,
@@ -34,7 +36,8 @@ const AppButton = (props: {
                 height:hp('6.94%'),
                 alignSelf:'center',
             }:
-            undefined,props.style, 
+            undefined,
+            props.style, 
         ]}
         >
             {props.iconComp &&

@@ -8,6 +8,7 @@ import ArrowSvg from '../../Assets/svgs/Account/Transfer/arrow.svg';
 import SeparatorSvg from '../../Assets/svgs/Common/separator.svg';
 import AppButton from '../../Components/Common/AppButton';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import ScreenContainer from '../../Components/Common/ScreenContainer';
 
 const data = [
     {
@@ -62,9 +63,7 @@ const TransferScreen = () => {
     const navigation: NavigationProp<ParamListBase> = useNavigation();
 
     return (
-        <View
-            style={ScreenStyle}
-        >
+        <ScreenContainer>
 
             <AppText
                 style={{
@@ -89,9 +88,10 @@ const TransferScreen = () => {
             <SectionList
                 sections={data}
                 keyExtractor={(item, index) => index.toString()}
+                scrollEnabled={false}
                 ItemSeparatorComponent={() => <SeparatorSvg style={{ alignSelf: 'center', marginTop: hp('2.776') }} />}
                 renderSectionFooter={() => <View style={{ height: hp('4.164') }} />}
-                style={{ marginTop: hp('2.776'), marginBottom:hp('7') }}
+                style={{ marginTop: hp('2.776'), marginBottom: hp('7') }}
                 renderSectionHeader={({ section: { title } }) => <SectionHeader title={title} />}
                 renderItem={({ item }) => <ItemComp time={item.time} amount={item.amount} />}
             />
@@ -106,7 +106,7 @@ const TransferScreen = () => {
                 }}
             />
 
-        </View>
+        </ScreenContainer>
     );
 }
 

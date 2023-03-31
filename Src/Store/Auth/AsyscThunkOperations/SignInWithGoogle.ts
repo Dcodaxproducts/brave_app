@@ -5,22 +5,30 @@ import config from '../../../Config/config';
 import Toast from 'react-native-toast-message';
 
 interface LoginFields {
-    email: string, password: string
+    email: string,
+    first_name?: string | null,
+    last_name?: string | null,
+    google_id?: string | null,
+    image_url?: string | null
 }
 
-export const LoginUser = createAsyncThunk('Auth/LoginUser', async (props: LoginFields, thunkAPI) => {
+export const SignInWithGoogle = createAsyncThunk('Auth/SignInWithGoogle', async (props: LoginFields, thunkAPI) => {
 
     thunkAPI.dispatch(authRequest());
 
     try {
-        const response = await axios.post(config.baseUrl + 'login', {
+        const response = await axios.post(config.baseUrl + 'signin/google/callback', {
             email: props.email,
-            password: props.password
+            first_name: props.first_name,
+            last_name: props.last_name,
+            google_id: props.google_id,
+            image_url: props.image_url
         });
-        thunkAPI.dispatch(authSuccess({token:response.data.data.token, ...response.data.data.user}));
+
+        thunkAPI.dispatch(authSuccess({ token: response.data.data.token, ...response.data.data.user }));
 
     } catch (error: any) {
-        console.log(error)
+        console.log(error.response.data.message)
         if (error.response.status == 500) {
             thunkAPI.dispatch(authFailure('Internal Server Error.'));
             Toast.show({

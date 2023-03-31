@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import BackgroundSvg from '../../Assets/svgs/Account/Profile/background.svg';
 import ImportSvg from '../../Assets/svgs/Account/Profile/import.svg';
 import AppButton from '../../Components/Common/AppButton';
+import ScreenContainer from '../../Components/Common/ScreenContainer';
 import AppField from '../../Components/Fields/AppField';
 import AppText from '../../Components/Text/AppText';
 import colors from '../../Config/colors';
@@ -15,11 +16,12 @@ const ProfileScreen = () => {
 
     const user = useSelector((state: any) => state.AuthReducer.user);
 
+    console.log('USER SSSS:       ', user)
+
     return (
 
-        <ScrollView>
 
-            <View style={[ScreenStyle, { overflow: 'hidden', marginBottom: -ScreenStyle.paddingVertical }]}>
+            <ScreenContainer style={ { overflow: 'hidden', marginBottom: -ScreenStyle.paddingVertical }}>
 
                 <BackgroundSvg
                     style={{
@@ -38,7 +40,7 @@ const ProfileScreen = () => {
                     }}
                 >
                     <Image
-                        source={user.image ? { uri: user.image } : require('../../Assets/images/avator.png')}
+                        source={user?.image ? { uri: user.image } : require('../../Assets/images/avator.png')}
                         style={{
                             width: wp('26.6592'),
                             height: wp('26.6592'),
@@ -58,7 +60,7 @@ const ProfileScreen = () => {
                         marginTop: hp('2')
                     }}
                 >
-                    {user.first_name +' '+ user.last_name}
+                    {user?.first_name +' '+ user?.last_name}
                 </AppText>
 
                 <AppText
@@ -70,7 +72,7 @@ const ProfileScreen = () => {
                         color: '#667085'
                     }}
                 >
-                    {user.email}
+                    {user?.email}
                 </AppText>
 
                 <View
@@ -126,7 +128,7 @@ const ProfileScreen = () => {
                             textInputHeight={hp('6.1072')}
                             titleStyle={{ fontSize: 14, marginBottom: hp('0.8328') }}
                             textInputStyle={{ paddingHorizontal: wp('3') }}
-                            value={user.first_name}
+                            value={user?.first_name}
                         />
 
                         <AppField
@@ -136,7 +138,7 @@ const ProfileScreen = () => {
                             textInputHeight={hp('6.1072')}
                             titleStyle={{ fontSize: 14, marginBottom: hp('0.8328') }}
                             textInputStyle={{ paddingHorizontal: wp('3') }}
-                            value={user.last_name}
+                            value={user?.last_name}
                         />
 
                         <AppField
@@ -146,13 +148,13 @@ const ProfileScreen = () => {
                             textInputHeight={hp('6.1072')}
                             titleStyle={{ fontSize: 14, marginBottom: hp('0.8328') }}
                             textInputStyle={{ paddingHorizontal: wp('3') }}
-                            value={user.email}
+                            value={user?.email}
                             leftIcon={'email-outline'}
                             iconColor="#667085"
                         />
 
                         <Image
-                            source={user.image ? { uri: user.image } : require('../../Assets/images/avator.png')}
+                            source={user?.image ? { uri: user?.image } : require('../../Assets/images/avator.png')}
                             style={{
                                 width: wp('17.7728'),
                                 height: wp('17.7728'),
@@ -268,9 +270,7 @@ const ProfileScreen = () => {
 
                 </View>
 
-            </View>
-
-        </ScrollView>
+            </ScreenContainer>
     );
 };
 

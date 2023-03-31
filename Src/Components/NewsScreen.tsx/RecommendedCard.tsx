@@ -95,6 +95,7 @@ const RecommendedCard = (props: {
             <FlatList
             data={props.data}
             keyExtractor={(item, index)=> index.toString()}
+            scrollEnabled={false}
             showsVerticalScrollIndicator={false}
             renderItem={({item})=>{
                 return(

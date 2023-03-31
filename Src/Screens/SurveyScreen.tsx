@@ -1,54 +1,31 @@
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, FlatList, Alert } from 'react-native';
-import ScreenStyle from '../Config/Styles/common/ScreenStyle';
+import { Alert, FlatList, StyleSheet, View } from 'react-native';
 import * as Progress from 'react-native-progress';
-import AppText from '../Components/Text/AppText';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import colors from '../Config/colors';
-import OptionComp from '../Components/SurveyScreen/OptionComp';
-import AppButton from '../Components/Common/AppButton';
 import { Shadow } from 'react-native-shadow-2';
-
-const question = [
-    {
-        title: 'What is the primary goal you hope to achieve?',
-        description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. ',
-        otptions: [
-            'Grow long-term wealth',
-            'Save for retirement',
-            'Support my loved ones',
-            'Buy a home',
-            'Pay off debt',
-            'Start my own business',
-        ]
-    },
-    {
-        title: 'When do you hope to reach you goa?',
-        description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. ',
-        otptions: [
-            '1-5 Years',
-            '5-10 Years',
-            '10-20 Years',
-            '20+ Years',
-        ]
-    },
-    {
-        title: 'How Much do you Know About Investing?',
-        description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. ',
-        otptions: [
-            'I’m New to Investing',
-            'I Know the Besices',
-            'I Have a Good Understanding',
-            'I’m an Expert',
-        ]
-    },
-
-]
+import { useDispatch, useSelector } from 'react-redux';
+import AppButton from '../Components/Common/AppButton';
+import ScreenContainer from '../Components/Common/ScreenContainer';
+import OptionComp from '../Components/SurveyScreen/OptionComp';
+import AppText from '../Components/Text/AppText';
+import colors from '../Config/colors';
+import ScreenStyle from '../Config/Styles/common/ScreenStyle';
+import { authSurveyCompleted } from '../Store/Auth/AuthSlice';
+import { GetSurveyQuestions } from '../Store/Survey/AsyscThunkOperations/GetSurveyQuestions';
+import { PostSurveyAnswers } from '../Store/Survey/AsyscThunkOperations/PostSurveyAnswers';
 
 interface questionObj {
-    title: string;
-    description: string;
-    otptions: string[];
+    question?: string;
+    description?: string;
+    answers?: string[];
+    question_description?: string;
+    id?: string;
+}
+
+interface SurveyAnswerObj {
+    question_id?: string,
+    answer?: string
 }
 
 const SurveyScreen = () => {
@@ -56,16 +33,29 @@ const SurveyScreen = () => {
     const [length, setLength] = useState<number>(0);
     const [current, setCurrent] = useState<questionObj>();
     const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const [selectedItem, setSelectedItem] = useState('');
+    const [survayAnswers, setSurvayAnswer] = useState<SurveyAnswerObj[]>([]);
+
+    const navigation: NavigationProp<ParamListBase> = useNavigation();
+
+    const QUESTIONS = useSelector((state: any) => state.SurveyReducer.questions);
+    const USER = useSelector((state: any) => state.AuthReducer.user);
+    const dispatch = useDispatch<any>();
+
 
     useEffect(() => {
-        if (question) {
-            setLength(question.length);
-            setCurrent(question[currentIndex]);
+        if (!QUESTIONS) dispatch(GetSurveyQuestions());
+    }, [QUESTIONS])
+
+    useEffect(() => {
+        if (QUESTIONS) {
+            setLength(QUESTIONS.length);
+            setCurrent(QUESTIONS[currentIndex]);
         }
-    }, [question])
+    }, [QUESTIONS])
 
     return (
-        <View style={ScreenStyle}>
+        <ScreenContainer>
 
             <Progress.Bar
                 progress={(currentIndex + 1) / length}
@@ -134,7 +124,7 @@ const SurveyScreen = () => {
                     marginTop: hp('3.0536'),
                 }}
             >
-                {current?.title}
+                {current?.question}
             </AppText>
 
             <AppText
@@ -151,24 +141,27 @@ const SurveyScreen = () => {
             <Shadow
                 distance={20}
                 startColor={colors.shadowDrop}
-                // endColor={colors.foreground}
-                // offset={[5, 20]}
                 style={{
                     width: '100%',
-                    height:hp('42')
+                    height: hp('42')
                 }}
             >
                 <FlatList
-                    data={current?.otptions}
-                    style={{ backgroundColor: colors.shadowDrop }}
+                    data={current?.answers}
+                    style={{ backgroundColor: colors.shadowDrop, }}
+                    scrollEnabled={false}
+                    showsVerticalScrollIndicator={false}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => {
+
                         return (
+
                             <OptionComp
                                 title={item}
-                                checkTitle={item}
-                                onSelect={(item) => console.log(item)}
+                                checkTitle={selectedItem}
+                                onSelect={(item) => setSelectedItem(item)}
                             />
+
                         );
                     }}
                 />
@@ -178,23 +171,30 @@ const SurveyScreen = () => {
             <AppButton
                 title='Next'
                 isSec
+                isDisable={selectedItem ? false : true}
                 style={{
-                    marginBottom: hp('5.552'),
-                    position: 'absolute',
-                    bottom: 0
+                    bottom: ScreenStyle.paddingVertical,
+                    position: 'absolute'
                 }}
-                onPress={() => {
+                onPress={async () => {
                     if (currentIndex + 1 != length) {
-                        setCurrent(question[currentIndex + 1]);
-                        setCurrentIndex(currentIndex + 1)
+                        setSurvayAnswer([...survayAnswers, { question_id: current?.id, answer: selectedItem }]);
+                        setCurrent(QUESTIONS[currentIndex + 1]);
+                        setCurrentIndex(currentIndex + 1);
+                        setSelectedItem('');
                     }
                     else {
-                        Alert.alert('Completed')
+                        console.log([...survayAnswers, { question_id: current?.id, answer: selectedItem }])
+                        const res = await dispatch(PostSurveyAnswers([...survayAnswers, { question_id: current?.id, answer: selectedItem }]))
+                        if (res.payload.isSuccess==true) {
+                            dispatch(authSurveyCompleted())
+                            navigation.navigate('Portfolio');
+                        }
                     }
                 }}
             />
 
-        </View>
+        </ScreenContainer>
     );
 };
 

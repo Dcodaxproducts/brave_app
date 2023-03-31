@@ -1,35 +1,23 @@
-import React, { Component, useState } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import colors from '../../Config/colors';
-import AppText from '../Text/AppText';
-import { Shadow } from 'react-native-shadow-2';
 import CheckSvg from '../../Assets/svgs/Survey/check.svg';
 import UncheckSvg from '../../Assets/svgs/Survey/unCheck.svg';
+import colors from '../../Config/colors';
+import AppText from '../Text/AppText';
 
 const OptionComp = (props: {
     title: string,
-    checkTitle?:string,
-    onSelect:(title:string)=> void
+    checkTitle?: string,
+    onSelect: (title: string) => void
 }) => {
-
-    // const [selected, setSelected]=useState<string>('');
 
     return (
 
-        // <Shadow
-        //     distance={20}
-        //     startColor={colors.shadowDrop}
-        //     // endColor={colors.foreground}
-        //     // offset={[5, 20]}
-        //     style={{
-        //         width: '100%',
-        //         // marginBottom: hp('1.388')
-        //     }}
-        // >
-
         <TouchableOpacity
-            onPress={()=> props.onSelect(props.title)}
+            onPress={() => {
+                props.onSelect(props.title);
+            }}
             style={styles.container}
         >
 
@@ -45,14 +33,14 @@ const OptionComp = (props: {
             </AppText>
 
             {props.checkTitle == props.title ?
+
                 <CheckSvg />
                 :
                 <UncheckSvg />
+                
             }
 
         </TouchableOpacity>
-
-        // </Shadow>
 
     );
 };
