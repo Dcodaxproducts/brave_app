@@ -11,9 +11,9 @@ const FeesScreen = () => {
     const dispatch=useDispatch<any>();
     
     useEffect(()=>{
-        // if(!FEES_STR){
+        if(!FEES_STR){
             dispatch(GetFees());
-        // }
+        }
     },[FEES_STR])
 
     return (

@@ -48,7 +48,7 @@ const HomeScreen = (props: {
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy euismod tincidunt dolore erat magna aliquam volutpat.
             </AppText>
 
-            {user?.survey_complete == 'No' &&
+            {user?.survey_complete != 'Yes' &&
                 <AppButton
                     title='Survey'
                     style={{

@@ -20,7 +20,7 @@ export const GetFees = createAsyncThunk('Fees/GetFees', async (_, thunkAPI) => {
         thunkAPI.dispatch(feesSuccess(response.data.data.content));
 
     } catch (error: any) {
-        console.log(error)
+        console.log(error.response.data)
         if (error.response.status == 500) {
             thunkAPI.dispatch(feesFailure('Internal Server Error.'));
             Toast.show({
@@ -32,7 +32,7 @@ export const GetFees = createAsyncThunk('Fees/GetFees', async (_, thunkAPI) => {
             thunkAPI.dispatch(feesFailure('Something Went Wrong.'));
             Toast.show({
                 type: 'error',
-                text1:error.response.data.data,
+                text1:'Something Went Wrong',
             })
         }
     }

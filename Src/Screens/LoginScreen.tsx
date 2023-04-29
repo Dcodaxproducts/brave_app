@@ -19,12 +19,7 @@ import { SignInWithGoogle } from '../Store/Auth/AsyscThunkOperations/SignInWithG
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().email().required().label('* Email'),
-    password: Yup.string().required().min(8).max(99)
-        .matches(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-            "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
-        ).
-        label('* Password')
+    password: Yup.string().required().max(99).label('* Password')
 });
 
 const LoginScreen = () => {
@@ -39,18 +34,21 @@ const LoginScreen = () => {
 
         try {
             GoogleSignin.configure();
-            await GoogleSignin.hasPlayServices();
+            // await GoogleSignin.hasPlayServices();
+             await GoogleSignin.signOut();
             const userInfo = await GoogleSignin.signIn();
 
+
+            console.log('SSSSSSSSS ', userInfo)
+
             dispatch(SignInWithGoogle({
-                email:userInfo.user.email,
-                first_name:userInfo.user.givenName,
-                last_name:userInfo.user.familyName,
-                google_id:userInfo.user.id,
-                image_url:userInfo.user.photo
+                email: userInfo.user.email,
+                first_name: userInfo.user.givenName,
+                last_name: userInfo.user.familyName,
+                google_id: userInfo.user.id,
+                image_url: userInfo.user.photo
             }));
 
-            console.log('GOOGLE SIGN IN ::::::::::::::::::: ', userInfo)
         } catch (error: any) {
 
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
